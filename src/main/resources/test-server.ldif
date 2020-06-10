@@ -1,0 +1,154 @@
+dn: dc=jorian,dc=cn
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: jorian
+
+dn: ou=dcc,dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: groups
+
+dn: ou=subgroups,ou=groups,dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: subgroups
+
+dn: ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: people
+
+dn: ou=space cadets,dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: space cadets
+
+dn: ou=\"quoted people\",dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: "quoted people"
+
+dn: ou=otherpeople,dc=jorian,dc=cn
+objectclass: top
+objectclass: cnanizationalUnit
+ou: otherpeople
+
+dn: uid=ben,ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Ben Alex
+sn: Alex
+uid: ben
+userPassword: {SHA}nFCebWjxfaLbHHG1Qk5UU4trbvQ=
+
+dn: uid=ncs10002,ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Jorian Ye
+sn: jorian
+uid: ncs10002
+userPassword: jorian123
+
+
+
+
+dn: uid=bob,ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Bob Hamilton
+sn: Hamilton
+uid: bob
+userPassword: bobspassword
+
+dn: uid=joe,ou=otherpeople,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Joe Smeth
+sn: Smeth
+uid: joe
+userPassword: joespassword
+
+dn: cn=mouse\, jerry,ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Mouse, Jerry
+sn: Mouse
+uid: jerry
+userPassword: jerryspassword
+
+dn: cn=slash/guy,ou=people,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: slash/guy
+sn: Slash
+uid: slashguy
+userPassword: slashguyspassword
+
+dn: cn=quote\"guy,ou=\"quoted people\",dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: quote\"guy
+sn: Quote
+uid: quoteguy
+userPassword: quoteguyspassword
+
+dn: uid=space cadet,ou=space cadets,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Space Cadet
+sn: Cadet
+uid: space cadet
+userPassword: spacecadetspassword
+
+dn: uid=space cadet,ou=space cadets,dc=jorian,dc=cn
+objectclass: top
+objectclass: person
+objectclass: cnanizationalPerson
+objectclass: inetcnPerson
+cn: Space Cadet
+sn: Cadet
+uid: space cadet
+userPassword: spacecadetspassword
+
+
+dn: cn=developers,ou=groups,dc=jorian,dc=cn
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: developers
+ou: developer
+uniqueMember: uid=ben,ou=people,dc=jorian,dc=cn
+uniqueMember: uid=bob,ou=people,dc=jorian,dc=cn
+
+dn: cn=managers,ou=groups,dc=jorian,dc=cn
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: managers
+ou: manager
+uniqueMember: uid=ben,ou=people,dc=jorian,dc=cn
+uniqueMember: cn=mouse\, jerry,ou=people,dc=jorian,dc=cn
+
+dn: cn=submanagers,ou=subgroups,ou=groups,dc=jorian,dc=cn
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: submanagers
+ou: submanager
+uniqueMember: uid=ben,ou=people,dc=jorian,dc=cn
+
+
