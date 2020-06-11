@@ -1,0 +1,33 @@
+2020-06-11 19:00:40.792  INFO 17232 --- [main] c.e.a.AuthenticatingLdapApplication      : Starting AuthenticatingLdapApplication on CD20180001-08 with PID 17232 (C:\workspaces\workspace-spring\spring-learn\springboot-ldap-jwt\target\classes started by P1330615 in C:\workspaces\workspace-spring\spring-learn\springboot-ldap-jwt)
+2020-06-11 19:00:40.799  INFO 17232 --- [main] c.e.a.AuthenticatingLdapApplication      : No active profile set, falling back to default profiles: default
+2020-06-11 19:00:43.423  INFO 17232 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-06-11 19:00:43.554  INFO 17232 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108ms. Found 1 JPA repository interfaces.
+2020-06-11 19:00:44.473  INFO 17232 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-11 19:00:45.604  INFO 17232 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2020-06-11 19:00:45.623  INFO 17232 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-11 19:00:45.624  INFO 17232 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-06-11 19:00:45.960  INFO 17232 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-11 19:00:46.138  WARN 17232 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2020-06-11 19:00:46.154  INFO 17232 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-11 19:00:46.192  INFO 17232 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-11 19:00:46.198 ERROR 17232 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+

@@ -1,0 +1,24 @@
+server:
+  port: 8080
+#jwt
+#jwt加解密时使用的key
+jwt:
+  key: $1kzv99@5%s
+
+#ldap_config
+ldap:
+  url: ldap://10.176.56.9:389
+  search-base: ou=groups
+  referral: follow
+  domainName: ncsi.com.cn
+  
+#spring.ldap.embedded.ldif: classpath:test-server.ldif
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/jframework?useUnicode=yes&characterEncoding=UTF8
+    username: root
+    password: root
+  resouces:
+    add-mappings: true

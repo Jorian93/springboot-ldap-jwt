@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.naming.NamingException;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
@@ -37,28 +39,30 @@ public class AuthController {
 
     // 域名后缀
     @Value("${ldap.domainName}")
-    private String ldapDomainName;
+    private String ldapDomainName = "ncsi.com.cn";
 
     /**
      * @param username 用户提交的名称
      * @param password 用户提交的密码
      * @return 成功返回加密后的token信息，失败返回错误HTTP状态码
+     * @throws NamingException 
      */
     @CrossOrigin // 因为需要跨域访问，所以要加这个注解
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> authByAd(@RequestParam(value = "username") String username,
-            @RequestParam(value = "password") String password) {
+            @RequestParam(value = "password") String password) throws NamingException {
         // 这里注意用户名加域名后缀 userDn格式：anwx@minibox.com
-        String userDn = username + ldapDomainName;
+        String userDn = username +"@"+ ldapDomainName;
 
-        LDAPUser ldapuser = LDAPUtils.executeLogin(userDn, password);
+        AdUser ldapuser = LDAPUtils.executeLogin(userDn, password);
+            
         // 使用Jwt加密用户名和用户所属组信息
-        String compactJws = Jwts.builder().setSubject(ldapuser.getName()).setAudience(ldapuser.getRole())
+        String compactJws = Jwts.builder().setSubject(ldapuser.getName()).setAudience(ldapuser.getFunc())
                 .setExpiration(tokenExpired).signWith(SignatureAlgorithm.HS512, jwtKey).compact();
         // 登录成功，返回客户端token信息。这里只加密了用户名和用户角色，而displayName和tokenExpired没有加密
         Map<String, Object> userInfo = new HashMap<String, Object>();
         userInfo.put("token", compactJws);
-        userInfo.put("displayName", ldapuser.getDisplayName());
+        userInfo.put("displayName", ldapuser.getName());
         userInfo.put("tokenExpired", tokenExpired.getTime());
         return new ResponseEntity<String>(JSON.toJSONString(userInfo, SerializerFeature.DisableCircularReferenceDetect),
                 HttpStatus.OK);

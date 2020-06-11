@@ -73,6 +73,12 @@
 	<artifactId>swagger-bootstrap-ui</artifactId>
 	<version>1.8.5</version>
 </dependency>
+<!-- add database jar, spring-boot need add jdbc -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
+		</dependency>
         <!--LOMBOK-->
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,42 +1,68 @@
-// /*
-//  * @Description: 
-//  * @Author: jorian
-//  * @Date: 2020-05-28 21:38:55
-//  */ 
-// package com.example.authenticatingldap.core;
+ package com.example.authenticatingldap.core;
 
 
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+ import java.io.IOException;
 
-// @Configuration
-// @EnableWebSecurity
-// public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-// 	@Override
-// 	protected void configure(HttpSecurity http) throws Exception {
-// 		http
-// 			.authorizeRequests()
-// 				.anyRequest().fullyAuthenticated()
-// 				.and()
-// 			.formLogin();
-// 	}
+import org.springframework.context.annotation.Configuration;
+ import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+ import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+ import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
-// 	@Override
-// 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-// 		auth
-// 			.ldapAuthentication()
-// 				.userDnPatterns("uid={0},ou=people")
-// 				.groupSearchBase("ou=groups")
-// 				.contextSource()
-// 					.url("ldap://localhost:8111/dc=springframework,dc=org")
-// 					.and()
-// 				.passwordCompare()
-// 					.passwordAttribute("userPassword");
-// 	}
+import com.alibaba.fastjson.JSON;
+import com.example.authenticatingldap.common.response.ResponseResult;
+ 
+ @Configuration
+ @EnableWebSecurity
+ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-// }
+ 	@Override
+ 	protected void configure(HttpSecurity http) throws Exception {
+ 		http
+ 			.authorizeRequests()
+	 			.antMatchers("/doc.html","/static/*","/swagger-ui.html","/webjars/*")//要放行的资源，对swagger放行
+	 			.permitAll()
+	 			.anyRequest()
+	 			.fullyAuthenticated()
+	 		.and()
+ 			.formLogin()
+ 			.and()
+ 			.csrf().disable().exceptionHandling()
+ 			.authenticationEntryPoint(getAuthenticationEntryPoint())
+ 			; 
+
+ 	}
+
+ 	/**
+ 	 * 
+ 	 * 去除前后端分离中的Security默认跳转页面
+ 	 * @return
+ 	 */
+ 	AuthenticationEntryPoint getAuthenticationEntryPoint() {
+ 		return new AuthenticationEntryPoint() {
+
+			@Override
+			public void commence(HttpServletRequest request, HttpServletResponse response,
+					AuthenticationException authException) throws IOException, ServletException {
+				response.setHeader("Content-Type", "application/json;charset=utf-8");
+				try {
+		            response.getWriter().write(JSON.toJSONString(ResponseResult.builder()
+		                    .code(203)
+		                    .msg("请登录")
+		                    .build()));
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+				
+			}
+ 			
+ 		};
+ 	}
+ }
